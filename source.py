@@ -1,6 +1,5 @@
 # autogal return false
 from io import BytesIO
-from lxml import html
 import threading
 from win10toast import ToastNotifier
 import base64
@@ -75,9 +74,8 @@ Version = 1.0
 
 def GetLatestVersion():
     try:
-        etree = html.etree
-        response = requests.get("https://github.com/jizhihaoSAMA/OCR-GALGAME-SystemTray/tags").text
-        return etree.HTML(response).xpath("/html/body/div[5]/div/main/div[3]/div/div[2]/div[2]/div/div/div[1]/h4/a")[0].text.replace(" ", "").replace("\n", "")
+        response = requests.get("https://api.github.com/repos/jizhihaoSAMA/OCR-GALGAME-SystemTray/releases/latest")
+        return response.json()["tag_name"]
     except:
         pass
 
@@ -177,7 +175,7 @@ def checkUpdate():
             if float(LastestVersion) > Version:
                 Choice = messagebox.askyesno(u"检查更新",u"检测到新版本 {} 咯\n你的当前版本是 {} ，去康康吧？".format(str(LastestVersion),str(Version)))
                 if Choice:
-                    open_new_tab("https://github.com/jizhihaoSAMA/OCR-GALGAME-SystemTray/tags") # 须修改
+                    open_new_tab("https://github.com/jizhihaoSAMA/OCR-GALGAME-SystemTray/releases") # 须修改
             else:
                 messagebox.showinfo(u"提示",u"宁当前已经是最新版本辣，")
             ProgressFrame.grid_forget()
@@ -186,7 +184,7 @@ def checkUpdate():
         if time()-StartTime > 10: #更新时间大于10秒
             Choice = messagebox.askyesno(u"检查更新",u"检查更新失败，自己去Github首页康康吧？")
             if Choice:
-                open_new_tab("https://github.com/jizhihaoSAMA/OCR-GALGAME-SystemTray/tags") # too
+                open_new_tab("https://github.com/jizhihaoSAMA/OCR-GALGAME-SystemTray/releases") # too
             ProgressFrame.grid_forget()
             Win.update()
             break
@@ -397,7 +395,7 @@ def donateMoney():
     DonateWin.mainloop()
 
 def howToUse():
-    pass
+    open_new_tab("https://www.bilibili.com/video/av89658774/")
 
 def textToClip():
     global OCRText,OCRWin
@@ -617,7 +615,7 @@ def onlyOCR():
         OCRWin = tkinter.Toplevel()
         OCRWin.title("OCR结果")
         OCRWin.wm_attributes("-topmost",1)
-        OCRWin.geometry('+500+250')
+        OCRWin.geometry(Win.winfo_geometry().split("+")[1],Win.winfo_geometry().split("+")[2])
         OCRWin.resizable(0,0)
         OCRWin.protocol("WM_DELETE_WINDOW",lambda :Win.deiconify()+OCRWin.withdraw() if TrayExists==False else OCRWin.withdraw())
         global ComeBackButton,Text2NovelButton
@@ -703,7 +701,7 @@ def galgameMode():#galgame游戏吞按键
         Win.withdraw()
         GALWin = tkinter.Toplevel()
         GALWin.wm_attributes("-topmost", 1)
-        GALWin.geometry('+500+250')
+        GALWin.geometry(Win.winfo_geometry().split("+")[1],Win.winfo_geometry().split("+")[2])
         GALWin.resizable(0,0)
         GALWin.protocol("WM_DELETE_WINDOW",lambda :Win.deiconify()+GALWin.withdraw() if TrayExists==False else GALWin.withdraw())
         tkinter.Label(GALWin,text="翻译结果如下：",font=("微软雅黑",10)).grid(row=0,column=0)
@@ -901,4 +899,3 @@ except SystemExit as e: #不捕获系统退出异常
 
 except:
     messagebox.showerror("啊噢，出现异常了(´･_･`)","执行错误，错误信息为：\n"+traceback.format_exc())
-
