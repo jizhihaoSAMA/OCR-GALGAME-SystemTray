@@ -247,10 +247,10 @@ def clearClipboard():
     win32clipboard.CloseClipboard()
 
 def oneShot():
-    with Controll.pressed(Key.cmd_l):
-        with Controll.pressed(Key.shift):
-            Controll.press('s')
-            Controll.release('s')
+    with Controll.pressed(Key.ctrl):
+        with Controll.pressed(Key.alt):
+            Controll.press('a')
+            Controll.release('a')
 
 def GetPointer():
     def on_click(x, y, button, pressed):

@@ -4,7 +4,7 @@
 A tool which is used to OCR, translate galgame to Chinese.
 
 所用技术（python）：
-tkinter+tk拓展winico+百度api接口OCR+requests爬虫百度翻译
+tkinter+tk拓展winico+百度api接口OCR+requests爬虫各种翻译（谷歌翻译，腾讯翻译，百度翻译，爱词霸翻译）
 
 #### 识别图片中的文字？
 #### Do you want to recognize the words in the picture?
@@ -40,13 +40,13 @@ tkinter+tk拓展winico+百度api接口OCR+requests爬虫百度翻译
 4. 暂不支持图片自定义。？
 5. ~~偶尔的开机暴死~~
 6. 偶尔的识别失误(这个是OCR自己的问题了，不管关我的事)
-7. 使用快捷键进行OCR如果取消导致无法再次使用快捷键
-8. 继续捕捉窗口不在顶层
+7. ~~使用快捷键进行OCR如果取消导致无法再次使用快捷键~~
+8. ~~继续捕捉窗口不在顶层~~
 9. ~~tab键顺序就尼玛离谱~~ 重写代码解决
-10. 剪贴板还原问题
+10. ~~剪贴板还原问题~~
 11. 除主屏幕外，其他屏幕无法截屏，问题：grab的C代码出了问题
 12. ~~百度翻译爬虫措施修改  ~~ ~~1.27日使用一次性cookie导致无法重复使用~~   1.31日恢复正常可正常使用百度翻译
 13. 二次回到主页面无法修改配置文件
 14. 后续考虑加入OCR统计次数
 
-欢迎讨论以及共同修改，Q574106827
+欢迎讨论以及共同修改，划掉的问题基本已解决。Q574106827
